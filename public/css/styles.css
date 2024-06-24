@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import '~bootstrap-icons/font/bootstrap-icons';
+
+:root{
+  --fs-small: 0.7rem;
+  --fs-lg: 0.9rem;
+  --padding-10: 10px;
+  --padding-15: 15px;
+  --padding-lg: 30px;
+  --padding-5: 5px;
+}
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: var(--fs-small);
+  background: rgba(0, 0, 0, 0.977);
+  color: #ffffffb6;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(100vw - 15vw);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--padding-10) 0;
+  padding-left: var(--padding-10);
+  padding-right: 15px;
+  color: #fff;
+}
+.nav-carrets{
+  display: flex;
+  align-items: center;
+  color: black;
+  gap:18px;
+}
+.nav-carrets button{
+  height: 17px;
+  width: 30px;
+  outline: 2px solid #ffffff;
+  outline-offset:2px ;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search{
+  display: flex;
+  align-items: center;
+  flex-basis: 50%;
+}
+form{
+  width: 100%;
+}
+.search-icon{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: var(--padding-10);
+  padding-right: var(--padding-5);
+  color: gray;
+}
+#search{
+  margin: 0;
+  padding: var(--padding-5) 0;
+  padding-left: var(--padding-lg);
+  padding-right: var(--padding-10);
+  font-size: var(--fs-small);
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 50px;
+  color: #333131;
+  outline: none;
+}
+.wrapper{
+  width: 100%;
+  position: relative;
+  padding: 0;
+}
+.profile{
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  align-items: center;
+}
+.profile-dropdown{
+  height: 10px;
+  background: transparent;
+  color: #fff;
+  border: 0;
+  margin-bottom: 0px;
+}
+.profile-img{
+  display: flex;
+  align-items: last baseline;
+  font-size: 10px;
+}
+.user-pic{
+  width: 20px;
+  height: 20px;
+}
+span.caret {
+  position: absolute;
+  left: 90%;
+  top: 45%;
+}
+
+label {
+  padding-top: 5px;
+}
+
+.side-nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 15vw;
+  height: 100vh;
+  padding: 0 5px;
+  padding-top: 8px;
+}
+.side-nav li{
+  list-style: none;
+  padding: 8px 0 8px 6px;
+}
+
+.side-nav li:hover{
+  background: #423f3f50;
+  border-radius: 3px;
+}
