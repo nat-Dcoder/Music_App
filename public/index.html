@@ -1,89 +1,494 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <title>Spotify Web API Tutorial</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
-" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel='stylesheet' type='text/css' href='css/styles.css'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        body{
+            color: #fff;
+        }
+        .container{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: #e8e5e57d;
+            padding: 0px;
+            overflow: hidden;
+        }
+        .header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0dcdc1c;
+        }
+        .wrapper{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/R.jpg');
+            background-repeat: no-repeat;
+            background-size:cover;
+            margin: 0;
+            box-shadow: 0 0 10px #020202;
+            overflow: hidden;
+        }
+
+        .icons{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .icons2{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .title{
+            text-align: center;
+        }
+        .title span{
+            font-family:'Courier New', Courier, monospace;
+            font-size: .9rem;
+            font-weight: 400;
+        }
+        h1{
+            font-weight: 500;
+            font-size: 1.2rem;
+            font-family:'Courier New', Courier, monospace;
+        }
+        .controls-wrapper{
+            position: fixed;
+            width: 100vw;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: 0 5px;
+            background: #08080dcf;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        .player-controls{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding:0;
+            padding: 14px 0;
+            z-index: 1;
+        }
+        .timer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: .8rem;
+            color: #FFFFFF;
+            font-family: monospace;
+            text-shadow: 1px 1px 0px black;
+             flex: 5;
+        }
+        .controls{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: #FFFFFF;
+        }
+        .controls .fa{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+        }
+        
+        .fa{
+            padding: 10px;
+        }
+        .fa:hover{
+             background: #362c2c7c;
+             cursor: pointer;
+        }
+        .progress{
+            margin-top: 20px;
+            width: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            padding:0;
+            margin: 0 0 20px 0;
+            gap: 5px;
+        }
+        progress{
+            width: 100%;
+            height: 8px;
+        }
+        #volume-slider {
+          width: 290px; /* Adjust width as needed */
+        }
+        .volume{
+            color: #FFFFFF;
+            margin-top: 35px;
+        }
+
+        .fa-play{
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            font-size: 5px;
+            outline: 2px solid #FFFFFF;
+            border-radius: 100px;
+        }
+        .fa-bell{
+            font-size: 15px;
+        }
+        .fa-user-circle{
+            font-size: 20px;
+        }
+        .fa-user-circle:hover{
+            background: transparent;
+        }
+
+        .fa-search:hover{
+            background: transparent;
+            cursor: text;
+        }
+        .main-controls{
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 3;
+        }
+        .sub-controls{
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-right: 18px;
+        }
+     
+        .menu{
+            width: 4px;
+            height: 4px;
+            background: #FFFFFF;
+            border-radius: 50px;
+            margin-top: 17px;
+        }
+        .menu::before, .menu::after{
+            content: "";
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50px;
+            display: inline-block;
+            position: relative;
+        }
+        .menu::before{
+            left: 0px;
+            top: -18px;
+        }
+        .menu::after{
+            right: 0;
+            top: -26px;
+            margin-right: 12px;
+        }
+
+        .hover:hover{
+            background: rgba(77, 58, 58, 0.55);
+            border-radius: 5px;
+        }
+        .back{
+            padding-left: 5px;
+        }
+        button{
+            border: 0;
+            outline: 0;
+            border-radius: 5px;
+            background: transparent;
+        }
+
+        button .fa{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            color: #FFFFFF;
+        }
+        .logo-wrapper{
+            width: 110px;
+            height: 50px;
+            margin-left: 10px;
+        }
+        .back{
+            display: flex;
+            align-items: center;
+        }
+        .back button .fa{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+        .logo-wrapper img{
+            object-fit: cover;
+        }
+        .profile{
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            flex-wrap: nowrap;
+            margin-right: 10px;
+            flex-basis: 30%;
+            gap: 8px;
+        }
+        .sidebar{
+            position: fixed;
+            left: 0;
+            width: 18vw;
+            height: 69.6vh;
+            max-height: 69.6vh;
+            margin-left: 3px;
+            background: #36748f31;
+            color: #ffffff87;
+        }
+        .sidebar h3{
+            font-size: .7rem;
+            font-weight: 300;
+            padding:8px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .billboard{   
+            height: 50%;
+            border-bottom: 1px solid #ffffff42;
+            color: rgba(197, 194, 194, 0.789);
+            overflow-y: scroll;
+        }
+        .billboard-title{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            border-bottom: 1px solid #ffffff42;
+        }
+
+        .playlist-title{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            border-bottom: 1px solid #ffffff42;
+        }
+        .billboard h3{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .playlist{
+            height: 50%;
+            border-top: 1px soild #ffffff42;
+            overflow-y: scroll;
+            scrollbar-width: 0;
+        }
+
+        .search{
+            display: flex;
+            align-items: center;
+            width: 80%;
+            height: 30px;
+        }
+        form{
+            width: 100%;
+            height: 100%;
+        }
+
+        .search label{
+            display: flex;
+            align-items: center;
+            background: #FFFFFF;
+            color: #020202;
+            border-radius: 100px;
+            height: 30px;
+        }
+        .search input{
+            width: 100%;
+            height: 30px;
+            border-radius: 100px;
+            border: 0;
+            outline: 0;
+            padding: 0 10px 0 2px;
+        }
+        .main-content{
+            position: relative;
+            width: calc(100vw - 18vw);
+            height: 100vh;
+            margin-left: 18vw;
+            background: #000000eb;
+        }
+        audio{
+            position: fixed;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+            width: 100%;
+             background: #36748f9b;
+             padding: 10px;
+             z-index: 100;
+        }
+
+        .volume-wrapper{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            flex-basis: 40%;
+        }
+        #volume-slider{
+            width: 100%;
+            height: 4px;
+        }
+
+        input[type="range"] {
+            accent-color: rgb(67, 140, 242); /* Set your desired color */
+        }
+
+        output {
+            position: absolute;
+            display: flex;
+            visibility: hidden;
+            align-items: center;
+            justify-content: center;
+            top: -25px;
+            background-color: #333;
+            color: #fff;
+            width: 20px;
+            height: 15px;
+            color: #FFFFFF;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            pointer-events: none; /* Prevent interaction with the tooltip */
+        }
+        .range-control{
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .spacer{
+            flex-basis: 30%;
+            visibility: hidden;
+        }
+
+    </style>
 </head>
 <body>
-    <header class="fixed-top">
-        <div class="nav-carrets">
-            <button type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-menu-up" viewBox="0 0 16 16">
-                    <path d="M7.646 15.854a.5.5 0 0 0 .708 0L10.207 14H14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3.793zM1 9V6h14v3zm14 1v2a1 1 0 0 1-1 1h-3.793a1 1 0 0 0-.707.293l-1.5 1.5-1.5-1.5A1 1 0 0 0 5.793 13H2a1 1 0 0 1-1-1v-2zm0-5H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 11.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 0-1h-8a.5.5 0 0 0-.5.5m0-4a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11a.5.5 0 0 0-.5.5m0-4a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1h-6a.5.5 0 0 0-.5.5"/>
-                </svg
-            </button>
-            
-        </div>
-        <div class="search">
-            <form action="#" method="get">
-                <div class="wrapper">
-                    <div class="search-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-search" viewBox="0 0 19 19">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
+    <div class="container">
+        
+        <div class="wrapper">
+            <!-- Header Content-->
+            <div class="header">
+                <div class="back">
+                    <button type="button"><i class="fa fa-caret-left"></i></button>
+                    <button type="button"><i class="fa fa-caret-right"></i></button>
+                     <div class="logo-wrapper">
+                        <img src="img/myLogoMaker_25-06-2024_40252_pm.png" style="width: 100%; height: 100%;" alt="">
                     </div>
-                    <input type="text" name="search" placeholder="Search Music, Artist, Genre...." id="search">
-                </div> 
-            </form>
-        </div>
-        <div class="profile">
-                <div class="profile-img">
-                    <img class="user-pic" src="images/user.png" alt="">
                 </div>
-                <button class="profile-dropdown" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
-                        <path d="M3.204 5h9.592L8 10.481zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659"/>
-                    </svg>
-                </button>
+                
+                <div class="profile">
+                    <div class="search">
+                        <form action="#" method="get">
+                            <label for="search"><i class="fa fa-search"></i><input type="search" name="search" id="search" placeholder="Search Artist, Music, Videos, Podcast and more..."></label>
+                        </form>
+                    </div>
+                    <i class="fa fa-bell hover"></i>
+                    <i class="fa fa-user-circle"></i>
+                </div>
             </div>
-    </header>
-    
-    <section class="side-nav">
-        <ul class="first">
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
-                </svg>&nbsp; Home
-            </li>
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>&nbsp; Search
-            </li>
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16">
-                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5z"/>
-                </svg>&nbsp; Library
-            </li>
-        </ul>
-        <ul class="second">
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16">
-                    <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
-                    <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
-                    <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
-                    <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
-                </svg>&nbsp; Create PlayList
-            </li>
-            <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                </svg>&nbsp;&nbsp;Favorite Songs
-            </li>
-        </ul>
-    </section>
-    <main>
-        <section>
-            <div class="cover-art"></div>
-        </section>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="/public/js/app.js"></script>
+            <div class="title-wrapper">
+                <div class="sidebar">
+                    <div class="billboard">
+                        <div class="billboard-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard2-data" viewBox="0 0 16 16">
+                                <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+                                <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M10 7a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0V9a1 1 0 0 0-1-1"/>
+                            </svg>                  
+                            <h3>BillBoard - Top 20 Songs</h3>
+                        </div>
+                        
+                    </div>
+                    <div class="playlist">
+                        <div class="playlist-title">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16">
+                                <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
+                                <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
+                                <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
+                                <path fill-rule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5m0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5"/>
+                            </svg>
+                            <h3>Muzik Selected PlayList</h3>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </div>
+            <!--Header Content End-->
 
-    <script src="js/jquery.js"></script>
+            <!--Main Content-->
+            <div class="main-content">
+                <audio controls>
+                </audio>
+            </div>
+            <!-- Main Content End-->
+            <div class="controls-wrapper">
+                <div class="player-controls">
+                     <div class="progress">
+                        <span class="timer">00:00</span>
+                        <progress id="file" value="1" max="100"></progress>
+                        <span class="timer">00:00</span>
+                    </div>
+                    <div class="controls">
+                        <div class="spacer">.</div>
+                        <div class="main-controls">
+                            <i class="fa fa-heart hover"></i>   
+                            <i class="fa fa-shuffle hover"></i>
+                            <i class="fa fa-backward-step hover"></i>
+                            <i class="fa fa-play"></i>
+                            <i class="fa fa-step-forward hover"></i>
+                            <i class="fa fa-repeat hover"></i>
+                            <i class="fa fa-share hover"></i>
+                        </div>   
+                        
+                        <div class="sub-controls">
+                            <div class="volume-wrapper">
+                                <i class="fa fa-volume-high hover"></i>
+                                <div class="range-control">
+                                    <output for="volume-slider"></output>
+                                    <input type="range" id="volume-slider" min="0" max="100" step="1">
+                                </div>
+                                
+                            </div>
+                            <i class="fa fa-maximize hover"></i>
+                            <i class="fa fa-minimize hover"></i>
+                            <i class="fa fa-ellipsis-v hover" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="./js/main.js"></script>
+    <script src="../app.js"></script>
 </body>
 </html>
